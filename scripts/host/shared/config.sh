@@ -6,5 +6,9 @@ get_cluster_name() {
 }
 
 get_host_ip() {
+    for i in {1..100}; do
+        ping -c1 www.google.com &> /dev/null && break;
+    done
+
     ip route get 1 | awk '{print $(NF-2);exit}'
 }
