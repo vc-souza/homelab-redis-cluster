@@ -23,7 +23,7 @@ sleep 10
 declare -a ADDRESSES=()
 
 for node in ${NODES[@]}; do
-    address="$(internal_address_for $node)"
+    address="$(advertised_address_for $node)"
     ADDRESSES+=($address)
 
     log "$(bold <<< "${node}") --> $(bold <<< "${address}")"
