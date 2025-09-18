@@ -16,7 +16,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-1
     networks:
       net:
-        ipv4_address: 172.18.0.1
+        ipv4_address: 172.255.255.1
     ports:
       - 6379:6379
     volumes:
@@ -29,7 +29,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-2
     networks:
       net:
-        ipv4_address: 172.18.0.2
+        ipv4_address: 172.255.255.2
     ports:
       - 6380:6379
     volumes:
@@ -42,7 +42,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-3
     networks:
       net:
-        ipv4_address: 172.18.0.3
+        ipv4_address: 172.255.255.3
     ports:
       - 6381:6379
     volumes:
@@ -55,7 +55,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-4
     networks:
       net:
-        ipv4_address: 172.18.0.4
+        ipv4_address: 172.255.255.4
     ports:
       - 6382:6379
     volumes:
@@ -68,7 +68,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-5
     networks:
       net:
-        ipv4_address: 172.18.0.5
+        ipv4_address: 172.255.255.5
     ports:
       - 6383:6379
     volumes:
@@ -81,7 +81,7 @@ services:
     hostname: ${CLUSTER_ID:?error}-node-6
     networks:
       net:
-        ipv4_address: 172.18.0.6
+        ipv4_address: 172.255.255.6
     ports:
       - 6384:6379
     volumes:
@@ -95,8 +95,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.18.0.0/24
-          gateway: 172.18.0.254
+        - subnet: 172.255.255.0/24
+          gateway: 172.255.255.254
 
 volumes:
   node-data-1: *vol-data
