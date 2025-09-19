@@ -6,6 +6,7 @@ get_cluster_name() {
 }
 
 get_host_ip() {
+    # wait for network to be up
     for i in {1..100}; do
         ping -c1 www.google.com &> /dev/null && break
         sleep 2

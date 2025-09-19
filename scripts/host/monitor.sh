@@ -14,9 +14,9 @@ log() {
 log "Checking Redis Cluster \"$(get_cluster_name | bold)\", according to $(bold <<< "${ENTRYPOINT}"):"
 
 for node in ${NODES[@]}; do
-    log "$(bold <<< "${node}") --> $(bold <<< "$(advertised_address_for $node)")"
+    log "$(bold <<< "${node}") --> $(bold <<< "$(announced_address_for $node)")"
 done
 
 bash_in $ENTRYPOINT <<EOF
-redis-cli --cluster check $(advertised_address_for $ENTRYPOINT)
+redis-cli --cluster check $(announced_address_for $ENTRYPOINT)
 EOF
