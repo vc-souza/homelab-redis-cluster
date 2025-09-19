@@ -12,12 +12,8 @@ bash_in() {
     docker compose exec -T "${1}" bash
 }
 
-hostname_for() {
-    bash_in "${1}" <<EOF
-hostname
+announced_address_for() {
+    bash_in "${1}" <<'EOF'
+echo -n "${ANNOUNCED_HOST}:${ANNOUNCED_PORT}"
 EOF
-}
-
-internal_address_for() {
-    echo -n "$(hostname_for "${1}"):$(get_cluster_node_port)"
 }

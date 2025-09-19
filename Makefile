@@ -1,10 +1,13 @@
 .PHONY: all
 all: run
 
+.PHONY: .FORCE
+.FORCE:
+
 config.json:
 	@cp config.json.template config.json
 
-.env: config.json
+.env: config.json .FORCE
 	@./scripts/host/gen/gen_env.sh
 
 conf/nodes/%:
@@ -17,24 +20,24 @@ install: conf/nodes/4 conf/nodes/5 conf/nodes/6
 	@./scripts/host/bootstrap.sh
 
 .PHONY: uninstall
-uninstall:
+uninstall: .env
 	@docker compose down -v || true
 	@rm -f config.json
 	@rm -f .env
 	@rm -rf conf/nodes/*/
 
 .PHONY: run
-run:
+run: .env
 	@docker compose up -d
 
 .PHONY: stop
-stop: 
+stop: .env
 	@docker compose down
 
 .PHONY: monitor
-monitor:
+monitor: .env
 	@./scripts/host/monitor.sh
 
 .PHONY: logs
-logs:
+logs: .env
 	@docker compose logs -f
