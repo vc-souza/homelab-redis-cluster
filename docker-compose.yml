@@ -112,7 +112,7 @@ services:
       - "${HOST_NAME:?error}=${HOST_IP:?error}"
 
 networks:
-  net:
+  default:
     name: ${CLUSTER_ID:?error}
     driver: bridge
 
