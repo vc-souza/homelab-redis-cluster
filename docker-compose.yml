@@ -1,7 +1,6 @@
 x-common-services:
   redis-node: &redis-node
     image: redis:8.2.1-bookworm
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
 x-volumes:
   data: &vol-data
@@ -14,9 +13,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-1
     hostname: ${CLUSTER_ID:?error}-node-1
-    networks:
-      net:
-        ipv4_address: 172.255.255.1
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-1"]
     ports:
       - 6379:6379
     volumes:
@@ -27,9 +24,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-2
     hostname: ${CLUSTER_ID:?error}-node-2
-    networks:
-      net:
-        ipv4_address: 172.255.255.2
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-2"]
     ports:
       - 6380:6379
     volumes:
@@ -40,9 +35,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-3
     hostname: ${CLUSTER_ID:?error}-node-3
-    networks:
-      net:
-        ipv4_address: 172.255.255.3
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-3"]
     ports:
       - 6381:6379
     volumes:
@@ -53,9 +46,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-4
     hostname: ${CLUSTER_ID:?error}-node-4
-    networks:
-      net:
-        ipv4_address: 172.255.255.4
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-4"]
     ports:
       - 6382:6379
     volumes:
@@ -66,9 +57,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-5
     hostname: ${CLUSTER_ID:?error}-node-5
-    networks:
-      net:
-        ipv4_address: 172.255.255.5
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-5"]
     ports:
       - 6383:6379
     volumes:
@@ -79,9 +68,7 @@ services:
     <<: *redis-node
     container_name: ${CLUSTER_ID:?error}-node-6
     hostname: ${CLUSTER_ID:?error}-node-6
-    networks:
-      net:
-        ipv4_address: 172.255.255.6
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-announce-hostname", "${CLUSTER_ID:?error}-node-6"]
     ports:
       - 6384:6379
     volumes:
@@ -92,11 +79,6 @@ networks:
   net:
     name: ${CLUSTER_ID:?error}
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.255.255.0/24
-          gateway: 172.255.255.254
 
 volumes:
   node-data-1: *vol-data

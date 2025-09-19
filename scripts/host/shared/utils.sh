@@ -12,12 +12,12 @@ bash_in() {
     docker compose exec -T "${1}" bash
 }
 
-ip_for() {
-    bash_in "${1}" <<'EOF'
-getent hosts | grep node | awk '{ print $1 }'
+hostname_for() {
+    bash_in "${1}" <<EOF
+hostname
 EOF
 }
 
 internal_address_for() {
-    echo -n "$(ip_for "${1}"):$(get_cluster_node_port)"
+    echo -n "$(hostname_for "${1}"):$(get_cluster_node_port)"
 }
